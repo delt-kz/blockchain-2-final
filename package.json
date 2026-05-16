@@ -1,0 +1,31 @@
+{
+  "name": "blockchain-final",
+  "version": "1.0.0",
+  "description": "Final project smart contracts for a DeFi super-app protocol.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "deploy:arb-sepolia": "hardhat run scripts/deploy.ts --network arbitrumSepolia",
+    "deploy:op-sepolia": "hardhat run scripts/deploy.ts --network optimismSepolia",
+    "deploy:base-sepolia": "hardhat run scripts/deploy.ts --network baseSepolia",
+    "verify:deployment": "hardhat run scripts/verifyDeployment.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "@types/node": "^25.8.0",
+    "hardhat": "^2.28.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1",
+    "@openzeppelin/contracts-upgradeable": "^5.6.1",
+    "dotenv": "^17.4.2"
+  }
+}
