@@ -46,6 +46,8 @@ The deploy script writes addresses to `deployments/<network>.json`.
 
 Current Base Sepolia deployment and verified BaseScan links are documented in `docs/base-sepolia-deployment.md`.
 
+Team members can compile and test without any private `.env`; see `docs/team-setup.md`.
+
 ## Deployment Help Needed
 
 I can run the deploy when you provide:
