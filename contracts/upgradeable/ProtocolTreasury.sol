@@ -65,6 +65,7 @@ contract ProtocolTreasury is
     {
         if (to == address(0)) revert ZeroAddress();
         if (amount == 0) revert ZeroAmount();
+        // slither-disable-next-line arbitrary-send-eth,low-level-calls
         (bool success,) = to.call{value: amount}("");
         if (!success) revert NativeTransferFailed();
         emit NativeReleased(to, amount);

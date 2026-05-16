@@ -22,8 +22,12 @@ contract DefiSwapPair is ERC20, ReentrancyGuard, Ownable {
     uint112 private _reserve0;
     uint112 private _reserve1;
 
-    event LiquidityAdded(address indexed provider, address indexed to, uint256 amount0, uint256 amount1, uint256 shares);
-    event LiquidityRemoved(address indexed provider, address indexed to, uint256 amount0, uint256 amount1, uint256 shares);
+    event LiquidityAdded(
+        address indexed provider, address indexed to, uint256 amount0, uint256 amount1, uint256 shares
+    );
+    event LiquidityRemoved(
+        address indexed provider, address indexed to, uint256 amount0, uint256 amount1, uint256 shares
+    );
     event Swap(
         address indexed sender,
         address indexed tokenIn,
@@ -127,14 +131,11 @@ contract DefiSwapPair is ERC20, ReentrancyGuard, Ownable {
         if (to == address(0)) revert ZeroAddress();
         if (tokenIn != token0 && tokenIn != token1) revert InvalidToken();
 
-        bool zeroForOne = tokenIn == token0;
-        address tokenOut = zeroForOne ? token1 : token0;
-        uint112 reserveIn = zeroForOne ? _reserve0 : _reserve1;
-        uint112 reserveOut = zeroForOne ? _reserve1 : _reserve0;
-        if (reserveIn == 0 || reserveOut == 0) revert InsufficientOutputAmount();
+        _requireSwapReserves(tokenIn);
 
         uint256 feeAmount = (amountIn * FEE_BPS) / BPS;
         amountOut = getAmountOut(amountIn, tokenIn);
+        // slither-disable-next-line incorrect-equality
         if (amountOut < minAmountOut || amountOut == 0) revert InsufficientOutputAmount();
 
         IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), amountIn);
@@ -142,12 +143,9 @@ contract DefiSwapPair is ERC20, ReentrancyGuard, Ownable {
         if (protocolFee > 0) {
             IERC20(tokenIn).safeTransfer(feeRecipient, protocolFee);
         }
-        IERC20(tokenOut).safeTransfer(to, amountOut);
+        IERC20(_tokenOut(tokenIn)).safeTransfer(to, amountOut);
 
-        uint256 balance0 = IERC20(token0).balanceOf(address(this));
-        uint256 balance1 = IERC20(token1).balanceOf(address(this));
-        if (balance0 > type(uint112).max || balance1 > type(uint112).max) revert Overflow();
-        _updateReservesAfter(uint112(balance0), uint112(balance1));
+        _syncCurrentBalances();
 
         emit Swap(msg.sender, tokenIn, to, amountIn, amountOut, feeAmount);
     }
@@ -159,6 +157,7 @@ contract DefiSwapPair is ERC20, ReentrancyGuard, Ownable {
         bool zeroForOne = tokenIn == token0;
         uint256 reserveIn = zeroForOne ? _reserve0 : _reserve1;
         uint256 reserveOut = zeroForOne ? _reserve1 : _reserve0;
+        // slither-disable-next-line incorrect-equality
         if (reserveIn == 0 || reserveOut == 0) revert InsufficientOutputAmount();
 
         uint256 amountInWithFee = amountIn * (BPS - FEE_BPS);
@@ -170,10 +169,26 @@ contract DefiSwapPair is ERC20, ReentrancyGuard, Ownable {
     }
 
     function _updateReserves() private {
+        _syncCurrentBalances();
+    }
+
+    function _syncCurrentBalances() private {
         uint256 balance0 = IERC20(token0).balanceOf(address(this));
         uint256 balance1 = IERC20(token1).balanceOf(address(this));
         if (balance0 > type(uint112).max || balance1 > type(uint112).max) revert Overflow();
         _updateReservesAfter(uint112(balance0), uint112(balance1));
+    }
+
+    function _requireSwapReserves(address tokenIn) private view {
+        bool zeroForOne = tokenIn == token0;
+        uint112 reserveIn = zeroForOne ? _reserve0 : _reserve1;
+        uint112 reserveOut = zeroForOne ? _reserve1 : _reserve0;
+        // slither-disable-next-line incorrect-equality
+        if (reserveIn == 0 || reserveOut == 0) revert InsufficientOutputAmount();
+    }
+
+    function _tokenOut(address tokenIn) private view returns (address) {
+        return tokenIn == token0 ? token1 : token0;
     }
 
     function _updateReservesAfter(uint112 reserve0_, uint112 reserve1_) private {

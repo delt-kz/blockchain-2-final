@@ -44,12 +44,12 @@ contract ChainlinkPriceOracle is Ownable {
         FeedConfig memory config = _feeds[asset];
         if (!config.enabled) revert FeedNotSet(asset);
 
-        (uint80 roundId, int256 answer,, uint256 answerUpdatedAt, uint80 answeredInRound) =
+        (uint80 roundId, int256 answer, uint256 startedAt, uint256 answerUpdatedAt, uint80 answeredInRound) =
             config.feed.latestRoundData();
 
         if (answeredInRound < roundId) revert RoundIncomplete();
         if (answer <= 0) revert InvalidPrice();
-        if (answerUpdatedAt == 0 || block.timestamp - answerUpdatedAt > config.staleAfter) {
+        if (startedAt == 0 || answerUpdatedAt == 0 || block.timestamp - answerUpdatedAt > config.staleAfter) {
             revert StalePrice(asset, answerUpdatedAt, config.staleAfter);
         }
 
