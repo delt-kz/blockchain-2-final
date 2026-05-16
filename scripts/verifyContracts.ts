@@ -36,7 +36,7 @@ async function main() {
   await verify(d.timelock, [d.governance.timelockDelay, [], [], d.deployer], "@openzeppelin/contracts/governance/TimelockController.sol:TimelockController");
   await verify(d.governor, [d.governanceToken, d.timelock, d.governance.proposalThreshold]);
   await verify(d.treasuryImplementation, []);
-  await verify(d.treasuryProxy, [d.treasuryImplementation, d.treasuryInitData]);
+  await verify(d.treasuryProxy, [d.treasuryImplementation, d.treasuryInitData], "contracts/proxy/ProtocolProxy.sol:ProtocolProxy");
   await verify(d.usdc, ["Student USD", "sUSD", 6, d.deployer]);
   await verify(d.weth, ["Wrapped Student ETH", "sWETH", 18, d.deployer]);
   await verify(d.vault, [d.usdc, d.timelock]);

@@ -1,0 +1,30 @@
+{
+  "network": "baseSepolia",
+  "chainId": 84532,
+  "deployedAt": "2026-05-16T05:08:24.045Z",
+  "deployer": "0x164794660A3D1d28fd9b7E018BEeC1CEf845397d",
+  "governanceToken": "0x11Cb8e82cc243Abbb960373E701a10593234A8dA",
+  "timelock": "0x433A20a53036798EEf6E9f99f76fe4D8a334d999",
+  "governor": "0x131B28c5141eff6860312643C44BFEE911AF4A7C",
+  "treasuryImplementation": "0xbe2A936b4eE2D9834F45F32bEfe1f5105955F920",
+  "treasuryProxy": "0x517E233f82aCA99855da1868e59c62c053DE1B2B",
+  "treasuryInitData": "0xc4d66de8000000000000000000000000433a20a53036798eef6e9f99f76fe4d8a334d999",
+  "usdc": "0xc57a698eAbb1eE7Fe87C741ea2EC4e860038C069",
+  "weth": "0x79E1fBC061bE3B20e8a76bf3bc84FD19F4039E56",
+  "vault": "0xDBCFA9EC3607e94298070202bF29aCeC5799b6af",
+  "items": "0xEDB4203e218795531AC31D1A2bdEc83f8A38A41A",
+  "oracle": "0xd9D6Caa996b8691Ca810545f9Ca04F1fF0Fdf8c4",
+  "ethUsdFeed": "0x53f721B8505E8B663b15cA9cF542460BBC9826d2",
+  "usdcUsdFeed": "0x069a81F5c06aC61bC8bAD9D8bb0c4350852aB3b4",
+  "mockEthFeed": "0x53f721B8505E8B663b15cA9cF542460BBC9826d2",
+  "mockUsdcFeed": "0x069a81F5c06aC61bC8bAD9D8bb0c4350852aB3b4",
+  "pairFactory": "0x829aF2859fA5D72b26C54f6467f625a86Ef89B67",
+  "ammPair": "0x45B59F4866A5748721c82db2Cc5149CFc5178dDB",
+  "governance": {
+    "timelockDelay": 172800,
+    "votingDelay": 86400,
+    "votingPeriod": 604800,
+    "quorumPercent": 4,
+    "proposalThreshold": "10000000000000000000000"
+  }
+}

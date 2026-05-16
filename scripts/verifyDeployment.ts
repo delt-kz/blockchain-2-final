@@ -11,12 +11,16 @@ function assertEqual(actual: unknown, expected: unknown, label: string) {
   console.log(`ok - ${label}`);
 }
 
+function deploymentFilePath() {
+  return process.env.DEPLOYMENT_FILE || path.join("deployments", `${network.name}.json`);
+}
+
 function loadDeployment() {
-  const file = process.env.DEPLOYMENT_FILE || path.join("deployments", `${network.name}.json`);
-  if (!fs.existsSync(file)) {
-    throw new Error(`Deployment file not found: ${file}`);
+  const filePath = deploymentFilePath();
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Deployment file not found: ${filePath}`);
   }
-  return JSON.parse(fs.readFileSync(file, "utf8"));
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
 async function main() {
@@ -31,7 +35,16 @@ async function main() {
   const vault = await ethers.getContractAt("YieldVault", deployment.vault);
   const oracle = await ethers.getContractAt("ChainlinkPriceOracle", deployment.oracle);
   const factory = await ethers.getContractAt("PairFactory", deployment.pairFactory);
-  const pair = await ethers.getContractAt("DefiSwapPair", deployment.ammPair);
+  let ammPair = deployment.ammPair;
+  if (!ammPair || ammPair === ethers.ZeroAddress) {
+    const pairCount = await factory.allPairsLength();
+    if (pairCount === 0n) throw new Error("factory has no AMM pairs");
+    ammPair = await factory.allPairs(pairCount - 1n);
+    deployment.ammPair = ammPair;
+    fs.writeFileSync(deploymentFilePath(), `${JSON.stringify(deployment, null, 2)}\n`);
+    console.log(`ok - recovered AMM pair address ${ammPair}`);
+  }
+  const pair = await ethers.getContractAt("DefiSwapPair", ammPair);
 
   assertEqual(Number(await timelock.getMinDelay()), 2 * 24 * 60 * 60, "timelock delay is 2 days");
   assertEqual(await timelock.hasRole(ZERO_ROLE, deployer), false, "deployer no longer has timelock admin");

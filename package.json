@@ -11,7 +11,8 @@
     "deploy:op-sepolia": "hardhat run scripts/deploy.ts --network optimismSepolia",
     "deploy:base-sepolia": "hardhat run scripts/deploy.ts --network baseSepolia",
     "verify:deployment": "hardhat run scripts/verifyDeployment.ts",
-    "verify:contracts": "hardhat run scripts/verifyContracts.ts"
+    "verify:contracts": "hardhat run scripts/verifyContracts.ts",
+    "fix:deployment-ownership": "hardhat run scripts/fixDeploymentOwnership.ts"
   },
   "keywords": [],
   "author": "",

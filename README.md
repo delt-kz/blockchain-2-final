@@ -30,7 +30,7 @@ For Base Sepolia, `BASE_SEPOLIA_RPC_URL=https://sepolia.base.org` is already eno
 
 For verified source code on the explorer, also fill:
 
-- `BASESCAN_API_KEY` or `ETHERSCAN_API_KEY`
+- `ETHERSCAN_API_KEY` is preferred because Hardhat Verify uses Etherscan API v2.
 
 Chainlink feed addresses are optional. If omitted, the deploy script deploys mock feeds for demos.
 
@@ -43,6 +43,8 @@ npm run verify:deployment -- --network arbitrumSepolia
 ```
 
 The deploy script writes addresses to `deployments/<network>.json`.
+
+Current Base Sepolia deployment and verified BaseScan links are documented in `docs/base-sepolia-deployment.md`.
 
 ## Deployment Help Needed
 

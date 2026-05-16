@@ -84,7 +84,11 @@ async function main() {
   const factory = await deployContract("PairFactory", [treasuryAddress, deployerAddress]);
   const salt = ethers.keccak256(ethers.toUtf8Bytes("student-demo-pair-v1"));
   await wait(factory.createPairDeterministic(await usdc.getAddress(), await weth.getAddress(), salt));
-  const pairAddress = await factory.getPair(await usdc.getAddress(), await weth.getAddress());
+  let pairAddress = await factory.getPair(await usdc.getAddress(), await weth.getAddress());
+  if (pairAddress === ethers.ZeroAddress) {
+    const pairCount = await factory.allPairsLength();
+    pairAddress = await factory.allPairs(pairCount - 1n);
+  }
   const pair = await ethers.getContractAt("DefiSwapPair", pairAddress);
 
   await wait(pair.transferOwnership(timelockAddress));
