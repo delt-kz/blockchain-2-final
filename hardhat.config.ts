@@ -2,7 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const deployerKey = process.env.DEPLOYER_PRIVATE_KEY;
 const accounts = deployerKey && deployerKey.length > 0 ? [deployerKey] : [];

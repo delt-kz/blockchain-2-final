@@ -7,3 +7,5 @@ typechain-types/
 .env
 .DS_Store
 deployments/*.local.json
+deployments/hardhat.json
+deployments/localhost.json
