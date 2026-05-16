@@ -22,12 +22,17 @@ npm test
 
 ## Deploy
 
-Copy `.env.example` to `.env`, then fill:
+Copy `.env.example` to `.env`, then fill at minimum:
 
 - `DEPLOYER_PRIVATE_KEY`
-- one L2 RPC URL, for example `ARBITRUM_SEPOLIA_RPC_URL`
-- explorer API key, for example `ARBISCAN_API_KEY`
-- optional Chainlink feed addresses. If omitted, the deploy script deploys mock feeds for demos.
+
+For Base Sepolia, `BASE_SEPOLIA_RPC_URL=https://sepolia.base.org` is already enough for a basic deployment.
+
+For verified source code on the explorer, also fill:
+
+- `BASESCAN_API_KEY` or `ETHERSCAN_API_KEY`
+
+Chainlink feed addresses are optional. If omitted, the deploy script deploys mock feeds for demos.
 
 Deploy to one L2:
 
@@ -43,8 +48,7 @@ The deploy script writes addresses to `deployments/<network>.json`.
 
 I can run the deploy when you provide:
 
-- an RPC URL for the selected L2 testnet;
 - a fresh test wallet private key with test ETH on that L2;
-- an explorer API key for verification.
+- an explorer API key for verification, unless we are only doing the first deploy step.
 
 Use a new test wallet only. Do not use a wallet with real funds.
