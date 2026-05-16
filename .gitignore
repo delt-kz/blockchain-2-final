@@ -3,6 +3,8 @@ cache/
 artifacts/
 coverage/
 coverage.json
+out/
+lcov.info
 typechain-types/
 .env
 .DS_Store
