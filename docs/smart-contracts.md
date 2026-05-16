@@ -33,6 +33,19 @@ The deploy script transfers or assigns privileged powers to the Timelock:
 
 The deployer Timelock admin role is revoked at the end of deployment.
 
+## Design Patterns
+
+| Pattern | Use | Justification |
+| --- | --- | --- |
+| Factory | `PairFactory` deploys AMM pairs through `CREATE` and `CREATE2` | Keeps pair creation deterministic and centralized under governance ownership |
+| Proxy / UUPS | `ProtocolTreasury` behind `ProtocolProxy` | Treasury logic can be upgraded only through the `UPGRADER_ROLE`, intended to be Timelock-controlled |
+| Checks-Effects-Interactions / Reentrancy Guard | Treasury, AMM pair, and vault state-changing flows | Protects token/ETH transfer flows and external receiver callbacks |
+| Access Control / Role-based permissions | `AccessControl` in treasury/items and `Ownable` elsewhere | Makes every privileged operation explicit and transferable to Timelock |
+| Pausable / Circuit Breaker | Treasury, vault, ERC1155 items | Allows governance to stop deposits, vault operations, or item transfers during incidents |
+| Oracle adapter | `ChainlinkPriceOracle` wraps `IAggregatorV3` | Isolates stale-price and decimal normalization logic from protocol consumers |
+| Timelock | `ProtocolGovernor` + OpenZeppelin `TimelockController` | Delays privileged governance execution and removes deployer admin backdoor |
+| Reentrancy Guard | Treasury, AMM pair, vault | Used where functions perform external token or native ETH calls |
+
 ## Chainlink Staleness
 
 `ChainlinkPriceOracle.getPrice` reverts when:
@@ -56,3 +69,5 @@ The current test suite covers:
 - ERC1155 access-control rejection;
 - full Governor propose -> vote -> queue -> execute lifecycle;
 - Yul sum matching the pure Solidity sum.
+
+The Foundry suite extends this with 80+ unit/fuzz/invariant/fork tests, vulnerability case studies, and coverage gating.
