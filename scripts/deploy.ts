@@ -19,10 +19,46 @@ async function wait(txPromise: Promise<unknown>) {
   await tx.wait();
 }
 
+async function existingDeploymentHasCode(filePath: string) {
+  if (process.env.FORCE_DEPLOY === "true" || !fs.existsSync(filePath)) return false;
+
+  const deployment = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const required = [
+    "governanceToken",
+    "timelock",
+    "governor",
+    "treasuryImplementation",
+    "treasuryProxy",
+    "usdc",
+    "weth",
+    "vault",
+    "items",
+    "oracle",
+    "pairFactory",
+    "ammPair",
+  ];
+
+  if (deployment.network !== network.name) return false;
+  for (const key of required) {
+    const address = deployment[key];
+    if (!address || address === ethers.ZeroAddress) return false;
+    const code = await ethers.provider.getCode(address);
+    if (code === "0x") return false;
+  }
+
+  console.log(`Reusing existing deployment from ${filePath}. Set FORCE_DEPLOY=true to redeploy.`);
+  console.log(JSON.stringify(deployment, null, 2));
+  return true;
+}
+
 async function main() {
   const [deployer] = await ethers.getSigners();
   const deployerAddress = await deployer.getAddress();
   console.log(`Deploying to ${network.name} from ${deployerAddress}`);
+
+  fs.mkdirSync("deployments", { recursive: true });
+  const outputPath = path.join("deployments", `${network.name}.json`);
+  if (await existingDeploymentHasCode(outputPath)) return;
 
   const governanceToken = await deployContract("GovernanceToken", [deployerAddress]);
   await wait(governanceToken.mint(deployerAddress, ONE_MILLION));
@@ -128,8 +164,6 @@ async function main() {
     },
   };
 
-  fs.mkdirSync("deployments", { recursive: true });
-  const outputPath = path.join("deployments", `${network.name}.json`);
   fs.writeFileSync(outputPath, `${JSON.stringify(deployment, null, 2)}\n`);
   console.log(`Saved deployment to ${outputPath}`);
 }

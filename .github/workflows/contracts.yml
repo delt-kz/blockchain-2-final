@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  hardhat:
+  contracts:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,8 +17,21 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Install Slither
+        run: python -m pip install --user slither-analyzer
 
       - name: Compile
         run: npm run compile
@@ -26,8 +39,20 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
-      - name: Test
+      - name: Solidity lint
+        run: npm run lint:sol
+
+      - name: Hardhat tests
         run: npm test
 
-      - name: Coverage
-        run: npm run coverage
+      - name: Forge build
+        run: npm run forge:build
+
+      - name: Forge tests
+        run: npm run forge:test
+
+      - name: Forge coverage
+        run: npm run forge:coverage
+
+      - name: Slither
+        run: npm run slither

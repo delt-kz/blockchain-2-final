@@ -49,12 +49,7 @@ contract ProtocolItems is ERC1155, ERC1155Supply, AccessControl, Pausable {
         super._update(from, to, ids, values);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC1155, AccessControl)
-        returns (bool)
-    {
+    function supportsInterface(bytes4 interfaceId) public view override(ERC1155, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

@@ -33,13 +33,7 @@ contract YieldVault is ERC4626, Ownable, Pausable, ReentrancyGuard {
         emit YieldReported(msg.sender, assets, totalAssets());
     }
 
-    function deposit(uint256 assets, address receiver)
-        public
-        override
-        whenNotPaused
-        nonReentrant
-        returns (uint256)
-    {
+    function deposit(uint256 assets, address receiver) public override whenNotPaused nonReentrant returns (uint256) {
         return super.deposit(assets, receiver);
     }
 

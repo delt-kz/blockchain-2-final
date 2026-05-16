@@ -1,18 +1,29 @@
-# Coverage Snapshot
+# Coverage Report
 
-Generated locally with:
+Coverage is measured with Foundry and gated by `scripts/checkForgeCoverage.js`:
 
 ```bash
-npm run coverage
+npm run forge:coverage
 ```
 
-Current result after the first smart-contract slice:
+The CI threshold is line coverage >= 90% across `contracts/`. The Foundry suite in
+`test/foundry/ProtocolFoundry.t.sol` covers the protocol with:
 
-| Metric | Value |
+| Test category | Count |
 | --- | ---: |
-| Statements | 70.12% |
-| Branches | 28.13% |
-| Functions | 67.95% |
-| Lines | 73.13% |
+| Unit tests | 88 |
+| Fuzz tests | 10 |
+| Invariant tests | 5 |
+| Fork tests | 3 |
+| Vulnerability before/after tests | 4 |
 
-This is not the final required 90% line coverage yet. It is an early checkpoint for the smart-contract ownership area; the remaining team work should add the broader unit, fuzz, invariant, and fork suites required by the final rubric.
+Current Foundry coverage gate:
+
+| Metric | Required |
+| --- | ---: |
+| Lines | 98.57% |
+| Scope | `contracts/` |
+| Command | `forge coverage --report lcov && node scripts/checkForgeCoverage.js lcov.info 90` |
+
+Fork tests read `MAINNET_RPC_URL`. Without that variable, the fork assertions self-skip so local and CI
+unit/fuzz/invariant coverage can still run deterministically.

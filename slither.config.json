@@ -1,0 +1,5 @@
+{
+  "filter_paths": "node_modules|artifacts|cache|coverage|typechain-types|test|lib",
+  "exclude_dependencies": true,
+  "fail_on": "medium"
+}

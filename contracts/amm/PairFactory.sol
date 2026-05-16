@@ -9,7 +9,9 @@ contract PairFactory is Ownable {
     address[] public allPairs;
     address public feeRecipient;
 
-    event PairCreated(address indexed token0, address indexed token1, address pair, bytes32 indexed salt, bool deterministic);
+    event PairCreated(
+        address indexed token0, address indexed token1, address pair, bytes32 indexed salt, bool deterministic
+    );
     event FeeRecipientUpdated(address indexed oldRecipient, address indexed newRecipient);
 
     error IdenticalTokens();
@@ -39,7 +41,11 @@ contract PairFactory is Ownable {
         _registerPair(token0, token1, pair, bytes32(0), false);
     }
 
-    function createPairDeterministic(address tokenA, address tokenB, bytes32 salt) external onlyOwner returns (address pair) {
+    function createPairDeterministic(address tokenA, address tokenB, bytes32 salt)
+        external
+        onlyOwner
+        returns (address pair)
+    {
         (address token0, address token1) = _sortTokens(tokenA, tokenB);
         if (getPair[token0][token1] != address(0)) revert PairExists();
 
@@ -48,12 +54,19 @@ contract PairFactory is Ownable {
         _registerPair(token0, token1, pair, finalSalt, true);
     }
 
-    function predictPairAddress(address tokenA, address tokenB, bytes32 salt) external view returns (address predicted) {
+    function predictPairAddress(address tokenA, address tokenB, bytes32 salt)
+        external
+        view
+        returns (address predicted)
+    {
         (address token0, address token1) = _sortTokens(tokenA, tokenB);
         bytes32 finalSalt = keccak256(abi.encodePacked(token0, token1, salt));
-        bytes32 bytecodeHash =
-            keccak256(abi.encodePacked(type(DefiSwapPair).creationCode, abi.encode(token0, token1, feeRecipient, owner())));
-        predicted = address(uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), address(this), finalSalt, bytecodeHash)))));
+        bytes32 bytecodeHash = keccak256(
+            abi.encodePacked(type(DefiSwapPair).creationCode, abi.encode(token0, token1, feeRecipient, owner()))
+        );
+        predicted = address(
+            uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), address(this), finalSalt, bytecodeHash))))
+        );
     }
 
     function _registerPair(address token0, address token1, address pair, bytes32 salt, bool deterministic) private {

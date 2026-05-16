@@ -18,7 +18,14 @@ Contract slice for a DeFi Super-App scenario. This repo currently covers the sma
 npm install
 npm run compile
 npm test
+npm run forge:build
+npm run forge:test
+npm run forge:coverage
+npm run lint:sol
+npm run slither
 ```
+
+`forge` and `slither` are installed in CI. For local security/fork runs, install Foundry and Slither first, then set `MAINNET_RPC_URL` if you want the three fork integration assertions to execute instead of self-skipping.
 
 ## Deploy
 
@@ -38,13 +45,22 @@ Deploy to one L2:
 
 ```bash
 npm run deploy:arb-sepolia
-npm run verify:contracts -- --network arbitrumSepolia
-npm run verify:deployment -- --network arbitrumSepolia
+npx hardhat run scripts/verifyContracts.ts --network arbitrumSepolia
+npx hardhat run scripts/verifyDeployment.ts --network arbitrumSepolia
 ```
 
-The deploy script writes addresses to `deployments/<network>.json`.
+For the committed Base Sepolia deployment:
+
+```bash
+npm run verify:contracts:base-sepolia
+npm run verify:deployment:base-sepolia
+```
+
+The deploy script writes addresses to `deployments/<network>.json`. If a valid deployment file already exists and all required addresses have bytecode, the script reuses it. Set `FORCE_DEPLOY=true` to redeploy from scratch.
 
 Current Base Sepolia deployment and verified BaseScan links are documented in `docs/base-sepolia-deployment.md`.
+
+Post-deployment verification output is documented in `docs/deployment-verification-output.md`.
 
 Team members can compile and test without any private `.env`; see `docs/team-setup.md`.
 
