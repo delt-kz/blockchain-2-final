@@ -91,6 +91,10 @@ Current Base Sepolia deployment and verified BaseScan links are documented in `d
 
 Post-deployment verification output is documented in `docs/deployment-verification-output.md`.
 
+The committed demo proposal is configured in `frontend/src/config/proposals.ts`.
+
+The final presentation PDF is available at `docs/presentation/final-presentation.pdf`.
+
 Team members can compile and test without any private `.env`; see `docs/team-setup.md`.
 
 ## Frontend

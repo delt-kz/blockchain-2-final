@@ -43,6 +43,16 @@ The expected network is Base Sepolia:
 
 The app detects wrong networks and asks MetaMask to switch to Base Sepolia.
 
+## Demo Proposal
+
+The deployed demo proposal is configured in `frontend/src/config/proposals.ts`:
+
+```text
+802469611665103410208070363780169661838614947002224719026573905077607966510
+```
+
+It was created on Base Sepolia to mint one ERC1155 item through the Governor and Timelock flow. The proposal becomes votable after the Governor voting delay has elapsed.
+
 ## Contract Configuration
 
 Addresses live in:

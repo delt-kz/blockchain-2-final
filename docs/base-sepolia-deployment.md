@@ -29,3 +29,13 @@ Post-deployment check passed:
 - Governor quorum is 4%.
 - Proposal threshold is 1%.
 - Token, vault, oracle, factory, pair, and treasury privileges are controlled by Timelock.
+
+Demo governance proposal:
+
+| Field | Value |
+| --- | --- |
+| Proposal ID | `802469611665103410208070363780169661838614947002224719026573905077607966510` |
+| Transaction | `0xe6d558c974741b22388a1894daf12eb7f99aa59905eb7ae714b19dd8704ddd58` |
+| Description | Mint one demo ERC1155 item for the final project UI vote |
+
+This proposal is included in `frontend/src/config/proposals.ts` so the dApp can display a real on-chain proposal state and vote buttons.

@@ -19,6 +19,7 @@
     "deploy:arb-sepolia": "hardhat run scripts/deploy.ts --network arbitrumSepolia",
     "deploy:op-sepolia": "hardhat run scripts/deploy.ts --network optimismSepolia",
     "deploy:base-sepolia": "hardhat run scripts/deploy.ts --network baseSepolia",
+    "proposal:demo:base-sepolia": "hardhat run scripts/createDemoProposal.ts --network baseSepolia",
     "verify:deployment": "hardhat run scripts/verifyDeployment.ts",
     "verify:deployment:base-sepolia": "hardhat run scripts/verifyDeployment.ts --network baseSepolia",
     "verify:contracts": "hardhat run scripts/verifyContracts.ts",

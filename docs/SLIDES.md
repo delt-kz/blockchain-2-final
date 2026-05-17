@@ -1,5 +1,17 @@
 # Defense Slides
 
+Generated PDF deck:
+
+```text
+docs/presentation/final-presentation.pdf
+```
+
+PNG previews:
+
+```text
+docs/presentation/preview/
+```
+
 ## Slide 1: Project Overview
 
 DeFi Student Protocol combines governance, a timelocked treasury, ERC20Votes, an ERC4626 vault, an AMM pair, ERC1155 items, and oracle support on Base Sepolia.

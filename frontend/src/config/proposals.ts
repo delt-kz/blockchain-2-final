@@ -5,6 +5,11 @@ export type ConfiguredProposal = {
 };
 
 // ProtocolGovernor does not expose on-chain proposal enumeration.
-// Add known proposal IDs here after creating proposals, for example:
-// { id: 12345678901234567890n, title: "Fund the protocol treasury" }
-export const proposals: ConfiguredProposal[] = [];
+export const proposals: ConfiguredProposal[] = [
+  {
+    id: 802469611665103410208070363780169661838614947002224719026573905077607966510n,
+    title: "Mint one demo ERC1155 item",
+    description:
+      "Base Sepolia proposal created for the final project UI vote demo.",
+  },
+];
