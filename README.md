@@ -1,6 +1,6 @@
 # Blockchain Technologies 2 Final Project
 
-Contract slice for a DeFi Super-App scenario. This repo currently covers the smart-contract and deployment ownership area:
+DeFi Super-App protocol with smart contracts, deployment tooling, security documentation, CI, a frontend, and a subgraph. The deployed Base Sepolia system includes governance, a timelocked treasury, ERC20Votes, an ERC4626 vault, an AMM pair, ERC1155 items, and oracle support.
 
 - UUPS upgradeable treasury with a V1 -> V2 upgrade path.
 - Factory that deploys AMM pairs through both `CREATE` and `CREATE2`.
@@ -11,6 +11,35 @@ Contract slice for a DeFi Super-App scenario. This repo currently covers the sma
 - Chainlink-compatible price oracle adapter with stale-price checks and mock aggregator.
 - OpenZeppelin Governor + TimelockController with 2 day delay, 1 day voting delay, 1 week voting period, 4% quorum, and 1% proposal threshold.
 - L2 deployment scripts for Arbitrum Sepolia, Optimism Sepolia, and Base Sepolia.
+- React frontend for wallet connection, protocol reads, governance actions, and vault deposit.
+- Graph Protocol subgraph for protocol event indexing.
+
+## Team Ownership
+
+| Area | Owner |
+| --- | --- |
+| Smart contracts, deployment, tests, security docs, CI | Existing team implementation |
+| Frontend + Subgraph + Docs | Nurasyl |
+
+## Base Sepolia Deployment
+
+Network: Base Sepolia
+
+Chain ID: `84532`
+
+| Contract | Address |
+| --- | --- |
+| Governance token | `0x11Cb8e82cc243Abbb960373E701a10593234A8dA` |
+| Timelock | `0x433A20a53036798EEf6E9f99f76fe4D8a334d999` |
+| Governor | `0x131B28c5141eff6860312643C44BFEE911AF4A7C` |
+| Treasury proxy | `0x517E233f82aCA99855da1868e59c62c053DE1B2B` |
+| USDC | `0xc57a698eAbb1eE7Fe87C741ea2EC4e860038C069` |
+| WETH | `0x79E1fBC061bE3B20e8a76bf3bc84FD19F4039E56` |
+| Vault | `0xDBCFA9EC3607e94298070202bF29aCeC5799b6af` |
+| Items | `0xEDB4203e218795531AC31D1A2bdEc83f8A38A41A` |
+| Oracle | `0xd9D6Caa996b8691Ca810545f9Ca04F1fF0Fdf8c4` |
+| Pair factory | `0x829aF2859fA5D72b26C54f6467f625a86Ef89B67` |
+| AMM pair | `0x45B59F4866A5748721c82db2Cc5149CFc5178dDB` |
 
 ## Local Commands
 
@@ -63,6 +92,59 @@ Current Base Sepolia deployment and verified BaseScan links are documented in `d
 Post-deployment verification output is documented in `docs/deployment-verification-output.md`.
 
 Team members can compile and test without any private `.env`; see `docs/team-setup.md`.
+
+## Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+npm run build
+```
+
+Addresses are configured in `frontend/src/config/contracts.ts`.
+
+Base Sepolia is configured in `frontend/src/config/chains.ts`.
+
+If a hosted subgraph exists, create `frontend/.env`:
+
+```bash
+VITE_SUBGRAPH_URL=<hosted-subgraph-url>
+```
+
+If the value is empty, the app shows `Subgraph URL is not configured yet.` and does not crash.
+
+## Subgraph
+
+```bash
+cd subgraph
+npm install
+npm run codegen
+npm run build
+```
+
+The subgraph indexes real events from the deployed governance token, governor, AMM pair, ERC4626 vault, and ERC1155 items contract. See `subgraph/README.md` for GraphQL queries.
+
+## Part 3 Checklist
+
+| Requirement | Status |
+| --- | --- |
+| Wallet connect | Done |
+| Network detection | Done |
+| Token balance read | Done |
+| Voting power read | Done |
+| Delegate address read | Done |
+| Protocol state read | Done |
+| 3 write actions | Done: delegate, vote, vault approve/deposit |
+| Proposal list | Done with manual `frontend/src/config/proposals.ts` |
+| Vote buttons | Done |
+| Subgraph data section | Done |
+| Readable errors | Done |
+| README | Done |
+| Architecture doc | Done |
+| Frontend guide | Done |
+| Subgraph guide | Done |
+| Slides | Done |
 
 ## Deployment Help Needed
 

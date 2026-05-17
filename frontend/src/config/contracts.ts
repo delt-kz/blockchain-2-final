@@ -1,0 +1,15 @@
+import type { Address } from "viem";
+
+export const contracts = {
+  governanceToken: "0x11Cb8e82cc243Abbb960373E701a10593234A8dA",
+  timelock: "0x433A20a53036798EEf6E9f99f76fe4D8a334d999",
+  governor: "0x131B28c5141eff6860312643C44BFEE911AF4A7C",
+  treasuryProxy: "0x517E233f82aCA99855da1868e59c62c053DE1B2B",
+  usdc: "0xc57a698eAbb1eE7Fe87C741ea2EC4e860038C069",
+  weth: "0x79E1fBC061bE3B20e8a76bf3bc84FD19F4039E56",
+  vault: "0xDBCFA9EC3607e94298070202bF29aCeC5799b6af",
+  items: "0xEDB4203e218795531AC31D1A2bdEc83f8A38A41A",
+  oracle: "0xd9D6Caa996b8691Ca810545f9Ca04F1fF0Fdf8c4",
+  pairFactory: "0x829aF2859fA5D72b26C54f6467f625a86Ef89B67",
+  ammPair: "0x45B59F4866A5748721c82db2Cc5149CFc5178dDB",
+} as const satisfies Record<string, Address>;
