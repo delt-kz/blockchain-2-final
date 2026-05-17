@@ -10,6 +10,8 @@ npm run slither
 
 All production contracts avoid `tx.origin`, randomness from `block.timestamp`, and deprecated ETH `transfer`/`send`. Native ETH release uses `call{value: amount}` and checks `success`.
 
+Part 3 adds a frontend and subgraph only. No smart-contract authorization, upgrade, treasury, AMM, vault, item, oracle, or governance logic was rewritten for the frontend/subgraph work.
+
 ## CEI and Reentrancy Matrix
 
 | Contract | External function | Protection |

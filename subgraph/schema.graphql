@@ -1,0 +1,105 @@
+type TokenTransfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type DelegateChange @entity(immutable: true) {
+  id: Bytes!
+  delegator: Bytes!
+  fromDelegate: Bytes!
+  toDelegate: Bytes!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type Proposal @entity(immutable: false) {
+  id: ID!
+  proposer: Bytes!
+  description: String!
+  voteStart: BigInt!
+  voteEnd: BigInt!
+  status: String!
+  etaSeconds: BigInt
+  createdTransactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type VoteCast @entity(immutable: true) {
+  id: Bytes!
+  proposalId: BigInt!
+  voter: Bytes!
+  support: Int!
+  weight: BigInt!
+  reason: String!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type Swap @entity(immutable: true) {
+  id: Bytes!
+  sender: Bytes!
+  tokenIn: Bytes!
+  to: Bytes!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  feeAmount: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type LiquidityPosition @entity(immutable: false) {
+  id: ID!
+  provider: Bytes!
+  receiver: Bytes!
+  shares: BigInt!
+  amount0Added: BigInt!
+  amount1Added: BigInt!
+  amount0Removed: BigInt!
+  amount1Removed: BigInt!
+  updatedAtBlock: BigInt!
+  updatedAtTimestamp: BigInt!
+}
+
+type VaultDeposit @entity(immutable: true) {
+  id: Bytes!
+  caller: Bytes!
+  owner: Bytes!
+  assets: BigInt!
+  shares: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type VaultWithdraw @entity(immutable: true) {
+  id: Bytes!
+  caller: Bytes!
+  receiver: Bytes!
+  owner: Bytes!
+  assets: BigInt!
+  shares: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type ItemTransfer @entity(immutable: true) {
+  id: Bytes!
+  operator: Bytes!
+  from: Bytes!
+  to: Bytes!
+  tokenId: BigInt!
+  value: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}

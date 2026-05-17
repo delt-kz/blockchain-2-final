@@ -1,0 +1,16 @@
+{
+  "name": "defi-student-subgraph",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.98.1",
+    "@graphprotocol/graph-ts": "^0.38.2"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
