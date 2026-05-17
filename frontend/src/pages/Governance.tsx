@@ -27,7 +27,7 @@ export function Governance() {
     const target = delegatee || address;
     if (!target || !isAddress(target)) {
       setError(
-        "Enter a valid delegate address or connect your wallet to self-delegate."
+        "Enter a valid delegate address or connect your wallet to self-delegate.",
       );
       return;
     }
@@ -38,7 +38,7 @@ export function Governance() {
         functionName: "delegate",
         args: [target],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) }
+      { onError: (nextError) => setError(getReadableError(nextError)) },
     );
   }
 

@@ -15,7 +15,7 @@ export function useGovernance() {
         functionName: "state",
         args: [proposal.id],
       })),
-    []
+    [],
   );
 
   const states = useReadContracts({

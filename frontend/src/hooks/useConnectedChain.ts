@@ -7,7 +7,7 @@ type EthereumProvider = {
   on?: (event: "chainChanged", listener: (chainId: string) => void) => void;
   removeListener?: (
     event: "chainChanged",
-    listener: (chainId: string) => void
+    listener: (chainId: string) => void,
   ) => void;
 };
 
@@ -32,7 +32,7 @@ export function useConnectedChain() {
   const { chainId: accountChainId, isConnected } = useAccount();
   const wagmiChainId = useChainId();
   const [walletChainId, setWalletChainId] = useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
@@ -70,12 +70,12 @@ export function useConnectedChain() {
     () => ({
       chainId,
       chainName: chainId
-        ? knownChainNames[chainId] ?? `Chain ${chainId}`
+        ? (knownChainNames[chainId] ?? `Chain ${chainId}`)
         : "Not connected",
       isBaseSepolia,
       isWrongNetwork: isConnected && chainId !== expectedChainId,
     }),
-    [chainId, isBaseSepolia, isConnected]
+    [chainId, isBaseSepolia, isConnected],
   );
 }
 

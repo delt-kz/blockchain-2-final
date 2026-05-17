@@ -41,7 +41,7 @@ export function ProtocolActions() {
         functionName: "approve",
         args: [contracts.vault, amountWei],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) }
+      { onError: (nextError) => setError(getReadableError(nextError)) },
     );
   }
 
@@ -66,7 +66,7 @@ export function ProtocolActions() {
         functionName: "deposit",
         args: [amountWei, address],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) }
+      { onError: (nextError) => setError(getReadableError(nextError)) },
     );
   }
 

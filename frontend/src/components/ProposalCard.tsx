@@ -46,7 +46,7 @@ export function ProposalCard({
       },
       {
         onError: (nextError) => setError(getReadableError(nextError)),
-      }
+      },
     );
   }
 
