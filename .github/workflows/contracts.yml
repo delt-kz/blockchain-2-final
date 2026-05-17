@@ -42,8 +42,17 @@ jobs:
       - name: Solidity lint
         run: npm run lint:sol
 
+      - name: Frontend prettier
+        run: npm run lint:frontend
+
       - name: Hardhat tests
         run: npm test
+
+      - name: Frontend build
+        run: npm run build:frontend
+
+      - name: Subgraph build
+        run: npm run build:subgraph
 
       - name: Forge build
         run: npm run forge:build

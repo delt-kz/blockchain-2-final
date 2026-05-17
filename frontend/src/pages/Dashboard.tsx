@@ -19,13 +19,31 @@ export function Dashboard() {
       </div>
       <div className="stats-grid">
         <StatCard label="Wallet" value={shortAddress(address)} />
-        <StatCard label="Network" value={`${chainName}${chainId ? ` (${chainId})` : ""}`} />
-        <StatCard label="Governance balance" value={`${formatToken(token.balance)} ${token.symbol}`} />
-        <StatCard label="Voting power" value={`${formatToken(token.votingPower)} ${token.symbol}`} />
+        <StatCard
+          label="Network"
+          value={`${chainName}${chainId ? ` (${chainId})` : ""}`}
+        />
+        <StatCard
+          label="Governance balance"
+          value={`${formatToken(token.balance)} ${token.symbol}`}
+        />
+        <StatCard
+          label="Voting power"
+          value={`${formatToken(token.votingPower)} ${token.symbol}`}
+        />
         <StatCard label="Delegate" value={shortAddress(token.delegate)} />
-        <StatCard label="Vault total assets" value={`${formatToken(protocol.totalAssets)} USDC`} />
-        <StatCard label="Vault total supply" value={`${formatToken(protocol.totalSupply)} dsvSHARE`} />
-        <StatCard label="Your vault shares" value={`${formatToken(protocol.userShares)} dsvSHARE`} />
+        <StatCard
+          label="Vault total assets"
+          value={`${formatToken(protocol.totalAssets)} USDC`}
+        />
+        <StatCard
+          label="Vault total supply"
+          value={`${formatToken(protocol.totalSupply)} dsvSHARE`}
+        />
+        <StatCard
+          label="Your vault shares"
+          value={`${formatToken(protocol.userShares)} dsvSHARE`}
+        />
       </div>
       <section className="panel">
         <h3>AMM Pair</h3>

@@ -15,7 +15,11 @@ export function WalletConnect() {
           Disconnect
         </button>
       ) : (
-        <button type="button" onClick={() => connect({ connector: injected() })} disabled={isPending}>
+        <button
+          type="button"
+          onClick={() => connect({ connector: injected() })}
+          disabled={isPending}
+        >
           {isPending ? "Connecting..." : "Connect MetaMask"}
         </button>
       )}

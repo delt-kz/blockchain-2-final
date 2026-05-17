@@ -5,7 +5,10 @@ import { baseSepolia, expectedChainId } from "../config/chains";
 type EthereumProvider = {
   request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
   on?: (event: "chainChanged", listener: (chainId: string) => void) => void;
-  removeListener?: (event: "chainChanged", listener: (chainId: string) => void) => void;
+  removeListener?: (
+    event: "chainChanged",
+    listener: (chainId: string) => void
+  ) => void;
 };
 
 declare global {
@@ -28,7 +31,9 @@ const knownChainNames: Record<number, string> = {
 export function useConnectedChain() {
   const { chainId: accountChainId, isConnected } = useAccount();
   const wagmiChainId = useChainId();
-  const [walletChainId, setWalletChainId] = useState<number | undefined>(undefined);
+  const [walletChainId, setWalletChainId] = useState<number | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (!isConnected || !window.ethereum) {
@@ -64,11 +69,13 @@ export function useConnectedChain() {
   return useMemo(
     () => ({
       chainId,
-      chainName: chainId ? knownChainNames[chainId] ?? `Chain ${chainId}` : "Not connected",
+      chainName: chainId
+        ? knownChainNames[chainId] ?? `Chain ${chainId}`
+        : "Not connected",
       isBaseSepolia,
       isWrongNetwork: isConnected && chainId !== expectedChainId,
     }),
-    [chainId, isBaseSepolia, isConnected],
+    [chainId, isBaseSepolia, isConnected]
   );
 }
 
@@ -81,7 +88,10 @@ export async function switchToBaseSepolia() {
       params: [{ chainId: "0x14a34" }],
     });
   } catch (error) {
-    const code = typeof error === "object" && error !== null && "code" in error ? (error as { code?: number }).code : undefined;
+    const code =
+      typeof error === "object" && error !== null && "code" in error
+        ? (error as { code?: number }).code
+        : undefined;
     if (code !== 4902) throw error;
 
     await window.ethereum.request({

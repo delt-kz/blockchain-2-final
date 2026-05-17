@@ -47,7 +47,9 @@ export function useSubgraphData() {
       });
       const payload = await response.json();
       if (!response.ok || payload.errors) {
-        throw new Error(payload.errors?.[0]?.message ?? "Subgraph request failed.");
+        throw new Error(
+          payload.errors?.[0]?.message ?? "Subgraph request failed."
+        );
       }
       return payload.data as {
         tokenTransfers: unknown[];

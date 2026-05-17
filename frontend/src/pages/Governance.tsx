@@ -26,7 +26,9 @@ export function Governance() {
     }
     const target = delegatee || address;
     if (!target || !isAddress(target)) {
-      setError("Enter a valid delegate address or connect your wallet to self-delegate.");
+      setError(
+        "Enter a valid delegate address or connect your wallet to self-delegate."
+      );
       return;
     }
     writeContract(
@@ -36,7 +38,7 @@ export function Governance() {
         functionName: "delegate",
         args: [target],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) },
+      { onError: (nextError) => setError(getReadableError(nextError)) }
     );
   }
 
@@ -52,9 +54,15 @@ export function Governance() {
           <input
             value={delegatee}
             onChange={(event) => setDelegatee(event.target.value)}
-            placeholder={address ? "Leave blank to self-delegate" : "Delegate address"}
+            placeholder={
+              address ? "Leave blank to self-delegate" : "Delegate address"
+            }
           />
-          <TxButton onClick={delegateVotes} disabled={!isConnected || !isBaseSepolia} pending={isPending}>
+          <TxButton
+            onClick={delegateVotes}
+            disabled={!isConnected || !isBaseSepolia}
+            pending={isPending}
+          >
             Delegate
           </TxButton>
         </div>
@@ -65,12 +73,17 @@ export function Governance() {
         {proposals.length === 0 ? (
           <p className="muted">
             No proposal IDs are configured yet. Add known proposal IDs in
-            <code> frontend/src/config/proposals.ts</code> after creating proposals.
+            <code> frontend/src/config/proposals.ts</code> after creating
+            proposals.
           </p>
         ) : (
           <div className="proposal-list">
             {proposals.map((proposal) => (
-              <ProposalCard key={proposal.id.toString()} {...proposal} disabled={!isBaseSepolia} />
+              <ProposalCard
+                key={proposal.id.toString()}
+                {...proposal}
+                disabled={!isBaseSepolia}
+              />
             ))}
           </div>
         )}

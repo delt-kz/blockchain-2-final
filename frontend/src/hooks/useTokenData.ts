@@ -11,10 +11,29 @@ export function useTokenData() {
     query: { enabled: Boolean(address) && isBaseSepolia },
     contracts: address
       ? [
-          { address: contracts.governanceToken, abi: governanceTokenAbi, functionName: "balanceOf", args: [address] },
-          { address: contracts.governanceToken, abi: governanceTokenAbi, functionName: "getVotes", args: [address] },
-          { address: contracts.governanceToken, abi: governanceTokenAbi, functionName: "delegates", args: [address] },
-          { address: contracts.governanceToken, abi: governanceTokenAbi, functionName: "symbol" },
+          {
+            address: contracts.governanceToken,
+            abi: governanceTokenAbi,
+            functionName: "balanceOf",
+            args: [address],
+          },
+          {
+            address: contracts.governanceToken,
+            abi: governanceTokenAbi,
+            functionName: "getVotes",
+            args: [address],
+          },
+          {
+            address: contracts.governanceToken,
+            abi: governanceTokenAbi,
+            functionName: "delegates",
+            args: [address],
+          },
+          {
+            address: contracts.governanceToken,
+            abi: governanceTokenAbi,
+            functionName: "symbol",
+          },
         ]
       : [],
   });

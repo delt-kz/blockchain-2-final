@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { useConnectedChain, switchToBaseSepolia } from "../hooks/useConnectedChain";
+import {
+  useConnectedChain,
+  switchToBaseSepolia,
+} from "../hooks/useConnectedChain";
 import { getReadableError } from "../utils/errors";
 
 export function NetworkGuard() {

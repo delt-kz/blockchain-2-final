@@ -42,7 +42,11 @@ function JsonPanel({ title, rows }: { title: string; rows: unknown[] }) {
   return (
     <section className="panel">
       <h3>{title}</h3>
-      {rows.length === 0 ? <p className="muted">No indexed rows yet.</p> : <pre>{JSON.stringify(rows, null, 2)}</pre>}
+      {rows.length === 0 ? (
+        <p className="muted">No indexed rows yet.</p>
+      ) : (
+        <pre>{JSON.stringify(rows, null, 2)}</pre>
+      )}
     </section>
   );
 }

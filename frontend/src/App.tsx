@@ -6,7 +6,12 @@ import { Governance } from "./pages/Governance";
 import { ProtocolActions } from "./pages/ProtocolActions";
 import { SubgraphData } from "./pages/SubgraphData";
 
-const tabs = ["Dashboard", "Governance", "Protocol Actions", "Subgraph Data"] as const;
+const tabs = [
+  "Dashboard",
+  "Governance",
+  "Protocol Actions",
+  "Subgraph Data",
+] as const;
 type Tab = (typeof tabs)[number];
 
 export function App() {
@@ -24,7 +29,12 @@ export function App() {
       <NetworkGuard />
       <nav className="tabs" aria-label="Main navigation">
         {tabs.map((tab) => (
-          <button key={tab} type="button" className={activeTab === tab ? "active" : ""} onClick={() => setActiveTab(tab)}>
+          <button
+            key={tab}
+            type="button"
+            className={activeTab === tab ? "active" : ""}
+            onClick={() => setActiveTab(tab)}
+          >
             {tab}
           </button>
         ))}

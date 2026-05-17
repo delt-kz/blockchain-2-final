@@ -6,16 +6,26 @@ export function getReadableError(error: unknown): string {
   if (lower.includes("user rejected") || lower.includes("user denied")) {
     return "Transaction was rejected in the wallet.";
   }
-  if (lower.includes("wrong network") || lower.includes("chain mismatch") || lower.includes("unsupported chain")) {
+  if (
+    lower.includes("wrong network") ||
+    lower.includes("chain mismatch") ||
+    lower.includes("unsupported chain")
+  ) {
     return "Wrong network. Please switch to Base Sepolia.";
   }
-  if (lower.includes("insufficient funds") || lower.includes("insufficient balance")) {
+  if (
+    lower.includes("insufficient funds") ||
+    lower.includes("insufficient balance")
+  ) {
     return "Insufficient balance for this transaction.";
   }
   if (lower.includes("execution reverted") || lower.includes("reverted")) {
     return "The contract rejected the transaction. Check balances, allowance, proposal state, or permissions.";
   }
-  if (lower.includes("connector not connected") || lower.includes("not connected")) {
+  if (
+    lower.includes("connector not connected") ||
+    lower.includes("not connected")
+  ) {
     return "Connect your wallet first.";
   }
   if (lower.includes("failed to fetch") || lower.includes("networkerror")) {

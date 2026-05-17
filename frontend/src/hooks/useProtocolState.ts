@@ -9,15 +9,29 @@ export function useProtocolState() {
   const { address } = useAccount();
   const { isBaseSepolia } = useConnectedChain();
   const contractsToRead = [
-    { address: contracts.ammPair, abi: ammPairAbi, functionName: "getReserves" },
+    {
+      address: contracts.ammPair,
+      abi: ammPairAbi,
+      functionName: "getReserves",
+    },
     { address: contracts.ammPair, abi: ammPairAbi, functionName: "token0" },
     { address: contracts.ammPair, abi: ammPairAbi, functionName: "token1" },
     { address: contracts.vault, abi: vaultAbi, functionName: "totalAssets" },
     { address: contracts.vault, abi: vaultAbi, functionName: "totalSupply" },
     ...(address
       ? [
-          { address: contracts.vault, abi: vaultAbi, functionName: "balanceOf", args: [address] },
-          { address: contracts.usdc, abi: erc20Abi, functionName: "balanceOf", args: [address] },
+          {
+            address: contracts.vault,
+            abi: vaultAbi,
+            functionName: "balanceOf",
+            args: [address],
+          },
+          {
+            address: contracts.usdc,
+            abi: erc20Abi,
+            functionName: "balanceOf",
+            args: [address],
+          },
           {
             address: contracts.usdc,
             abi: erc20Abi,
@@ -34,7 +48,16 @@ export function useProtocolState() {
     contracts: contractsToRead as any,
   });
 
-  const [reserves, token0, token1, totalAssets, totalSupply, userShares, usdcBalance, usdcAllowance] = reads.data ?? [];
+  const [
+    reserves,
+    token0,
+    token1,
+    totalAssets,
+    totalSupply,
+    userShares,
+    usdcBalance,
+    usdcAllowance,
+  ] = reads.data ?? [];
   return {
     ...reads,
     reserves: reserves?.result as readonly [bigint, bigint] | undefined,

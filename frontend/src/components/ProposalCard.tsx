@@ -20,7 +20,13 @@ const voteOptions = [
   ["Abstain", 2],
 ] as const;
 
-export function ProposalCard({ id, title, description, state, disabled }: Props) {
+export function ProposalCard({
+  id,
+  title,
+  description,
+  state,
+  disabled,
+}: Props) {
   const { isConnected } = useAccount();
   const { writeContract, isPending } = useWriteContract();
   const [error, setError] = useState("");
@@ -40,7 +46,7 @@ export function ProposalCard({ id, title, description, state, disabled }: Props)
       },
       {
         onError: (nextError) => setError(getReadableError(nextError)),
-      },
+      }
     );
   }
 
@@ -54,7 +60,12 @@ export function ProposalCard({ id, title, description, state, disabled }: Props)
       <strong className="state-pill">{getProposalStateText(state)}</strong>
       <div className="button-row">
         {voteOptions.map(([label, support]) => (
-          <TxButton key={label} onClick={() => castVote(support)} disabled={!isConnected || disabled} pending={isPending}>
+          <TxButton
+            key={label}
+            onClick={() => castVote(support)}
+            disabled={!isConnected || disabled}
+            pending={isPending}
+          >
             Vote {label}
           </TxButton>
         ))}

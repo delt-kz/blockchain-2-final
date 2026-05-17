@@ -21,7 +21,8 @@ export function ProtocolActions() {
   const [error, setError] = useState("");
 
   const amountWei = safeParseAmount(amount);
-  const needsApproval = amountWei > 0n && (protocol.usdcAllowance ?? 0n) < amountWei;
+  const needsApproval =
+    amountWei > 0n && (protocol.usdcAllowance ?? 0n) < amountWei;
 
   function approveUsdc() {
     setError("");
@@ -40,7 +41,7 @@ export function ProtocolActions() {
         functionName: "approve",
         args: [contracts.vault, amountWei],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) },
+      { onError: (nextError) => setError(getReadableError(nextError)) }
     );
   }
 
@@ -65,7 +66,7 @@ export function ProtocolActions() {
         functionName: "deposit",
         args: [amountWei, address],
       },
-      { onError: (nextError) => setError(getReadableError(nextError)) },
+      { onError: (nextError) => setError(getReadableError(nextError)) }
     );
   }
 
@@ -76,25 +77,49 @@ export function ProtocolActions() {
         <h2>ERC4626 vault deposit</h2>
       </div>
       <div className="stats-grid">
-        <StatCard label="Your USDC" value={`${formatToken(protocol.usdcBalance)} USDC`} />
-        <StatCard label="Vault allowance" value={`${formatToken(protocol.usdcAllowance)} USDC`} />
-        <StatCard label="Your vault shares" value={`${formatToken(protocol.userShares)} dsvSHARE`} />
+        <StatCard
+          label="Your USDC"
+          value={`${formatToken(protocol.usdcBalance)} USDC`}
+        />
+        <StatCard
+          label="Vault allowance"
+          value={`${formatToken(protocol.usdcAllowance)} USDC`}
+        />
+        <StatCard
+          label="Your vault shares"
+          value={`${formatToken(protocol.userShares)} dsvSHARE`}
+        />
       </div>
       <section className="panel form-panel">
         <h3>Deposit USDC</h3>
         <div className="input-row">
-          <input value={amount} onChange={(event) => setAmount(event.target.value)} inputMode="decimal" />
+          <input
+            value={amount}
+            onChange={(event) => setAmount(event.target.value)}
+            inputMode="decimal"
+          />
           {needsApproval ? (
-            <TxButton onClick={approveUsdc} disabled={!isConnected || !isBaseSepolia} pending={isPending}>
+            <TxButton
+              onClick={approveUsdc}
+              disabled={!isConnected || !isBaseSepolia}
+              pending={isPending}
+            >
               Approve USDC
             </TxButton>
           ) : (
-            <TxButton onClick={deposit} disabled={!isConnected || !isBaseSepolia} pending={isPending}>
+            <TxButton
+              onClick={deposit}
+              disabled={!isConnected || !isBaseSepolia}
+              pending={isPending}
+            >
               Deposit
             </TxButton>
           )}
         </div>
-        <p className="muted">This action uses the deployed USDC mock and YieldVault on Base Sepolia.</p>
+        <p className="muted">
+          This action uses the deployed USDC mock and YieldVault on Base
+          Sepolia.
+        </p>
         <ErrorBox message={error} />
       </section>
     </div>
