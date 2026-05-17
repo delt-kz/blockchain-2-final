@@ -146,11 +146,3 @@ The subgraph indexes real events from the deployed governance token, governor, A
 | Subgraph guide | Done |
 | Slides | Done |
 
-## Deployment Help Needed
-
-I can run the deploy when you provide:
-
-- a fresh test wallet private key with test ETH on that L2;
-- an explorer API key for verification, unless we are only doing the first deploy step.
-
-Use a new test wallet only. Do not use a wallet with real funds.
