@@ -7,6 +7,7 @@ import { ErrorBox } from "../components/ErrorBox";
 import { StatCard } from "../components/StatCard";
 import { TxButton } from "../components/TxButton";
 import { contracts } from "../config/contracts";
+import { USDC_DECIMALS, VAULT_SHARE_DECIMALS } from "../config/decimals";
 import { useConnectedChain } from "../hooks/useConnectedChain";
 import { useProtocolState } from "../hooks/useProtocolState";
 import { getReadableError } from "../utils/errors";
@@ -79,15 +80,15 @@ export function ProtocolActions() {
       <div className="stats-grid">
         <StatCard
           label="Your USDC"
-          value={`${formatToken(protocol.usdcBalance)} USDC`}
+          value={`${formatToken(protocol.usdcBalance, USDC_DECIMALS)} USDC`}
         />
         <StatCard
           label="Vault allowance"
-          value={`${formatToken(protocol.usdcAllowance)} USDC`}
+          value={`${formatToken(protocol.usdcAllowance, USDC_DECIMALS)} USDC`}
         />
         <StatCard
           label="Your vault shares"
-          value={`${formatToken(protocol.userShares)} dsvSHARE`}
+          value={`${formatToken(protocol.userShares, VAULT_SHARE_DECIMALS)} dsvSHARE`}
         />
       </div>
       <section className="panel form-panel">
@@ -128,7 +129,7 @@ export function ProtocolActions() {
 
 function safeParseAmount(value: string) {
   try {
-    return parseUnits(value || "0", 18);
+    return parseUnits(value || "0", USDC_DECIMALS);
   } catch {
     return 0n;
   }

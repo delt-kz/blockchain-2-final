@@ -1,5 +1,11 @@
 import { useAccount } from "wagmi";
 import { StatCard } from "../components/StatCard";
+import {
+  GOVERNANCE_DECIMALS,
+  USDC_DECIMALS,
+  VAULT_SHARE_DECIMALS,
+  WETH_DECIMALS,
+} from "../config/decimals";
 import { useConnectedChain } from "../hooks/useConnectedChain";
 import { useProtocolState } from "../hooks/useProtocolState";
 import { useTokenData } from "../hooks/useTokenData";
@@ -25,24 +31,24 @@ export function Dashboard() {
         />
         <StatCard
           label="Governance balance"
-          value={`${formatToken(token.balance)} ${token.symbol}`}
+          value={`${formatToken(token.balance, GOVERNANCE_DECIMALS)} ${token.symbol}`}
         />
         <StatCard
           label="Voting power"
-          value={`${formatToken(token.votingPower)} ${token.symbol}`}
+          value={`${formatToken(token.votingPower, GOVERNANCE_DECIMALS)} ${token.symbol}`}
         />
         <StatCard label="Delegate" value={shortAddress(token.delegate)} />
         <StatCard
           label="Vault total assets"
-          value={`${formatToken(protocol.totalAssets)} USDC`}
+          value={`${formatToken(protocol.totalAssets, USDC_DECIMALS)} USDC`}
         />
         <StatCard
           label="Vault total supply"
-          value={`${formatToken(protocol.totalSupply)} dsvSHARE`}
+          value={`${formatToken(protocol.totalSupply, VAULT_SHARE_DECIMALS)} dsvSHARE`}
         />
         <StatCard
           label="Your vault shares"
-          value={`${formatToken(protocol.userShares)} dsvSHARE`}
+          value={`${formatToken(protocol.userShares, VAULT_SHARE_DECIMALS)} dsvSHARE`}
         />
       </div>
       <section className="panel">
@@ -53,9 +59,9 @@ export function Dashboard() {
           <span>Token 1</span>
           <strong>{shortAddress(protocol.token1)}</strong>
           <span>Reserve 0</span>
-          <strong>{formatToken(protocol.reserves?.[0])}</strong>
+          <strong>{formatToken(protocol.reserves?.[0], WETH_DECIMALS)}</strong>
           <span>Reserve 1</span>
-          <strong>{formatToken(protocol.reserves?.[1])}</strong>
+          <strong>{formatToken(protocol.reserves?.[1], USDC_DECIMALS)}</strong>
         </div>
       </section>
     </div>

@@ -8,6 +8,7 @@ lcov.info
 typechain-types/
 .env
 .DS_Store
+*.log
 deployments/*.local.json
 deployments/hardhat.json
 deployments/localhost.json
